@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login and Registration</title>
+</head>
+<body>
+	<div>
+		<h1>Welcome!</h1>
+		<form action="/add" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<legend>Register</legend>
+				<label for="name">Name: </label>
+				<input type="text" name="name" id="name">
+				<label for="username">Username: </label>
+				<input type="text" name="username" id="username">
+				<label for="password">Password: </label>
+				<input type="password" name="password" id="password">
+				<label>*Password should be at least 8 characters</label>
+				<label for="pass_confirm">Confirm pw: </label>
+				<input type="password" name="pass_confirm" id="pass_confirm">
+				<label for="hired">Date hired: </label>
+				<input type="date" name="hired" id="hired">
+				<button>Register</button>
+			</fieldset>
+		</form>
+		<ul>
+		{% for message in messages %}
+		{% if message and message.tags != 'login error' %}
+
+		<li>{{ message }}</li>
+
+		{% endif %}
+		{% endfor %}
+		</ul>
+		<form action="/login" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<legend>Login</legend>
+				<label for="username">Username</label>
+				<input type="text" name="username" id="username">
+				<label for="password">Password</label>
+				<input type="password" name="password" id="password">
+				<button>Login</button>
+			</fieldset>
+		</form>
+		<ul>
+		{% for message in messages %}
+		{% if message and message.tags == 'login error'%}
+
+		<li>{{ message }}</li>
+
+		{% endif %}
+		{% endfor %}
+		</ul>
+	</div>
+
+</body>
+</html>
